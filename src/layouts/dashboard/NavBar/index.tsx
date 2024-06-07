@@ -20,7 +20,7 @@ const mockdata = [
     initiallyOpened: true,
     links: [
       { label: 'Stats', link: '/dashboard/stats' },
-      { label: 'Workbench', link: '/' },
+      { label: 'Workbench', link: '/dashboard/workbench' },
     ],
   },
   {
@@ -61,7 +61,7 @@ export default () => {
   const links = mockdata.map((item) => <LinksGroup {...item} key={item.label} />);
   const { sidebarWidth } = useAppState();
   return (
-    <nav className={classes.navbar} style={{ width: sidebarWidth }}>
+    <nav className={classes.navbar} style={{ width: sidebarWidth -20 }}>
       <ScrollArea className={classes.links}>
         <div className={classes.linksInner}>{links}</div>
       </ScrollArea>

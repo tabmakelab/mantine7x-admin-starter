@@ -1,6 +1,7 @@
 import { IconChevronDown, IconHeart, IconLogout, IconMessage, IconPlayerPause, IconSettings, IconStar, IconSwitchHorizontal, IconTrash } from '@tabler/icons-react';
 import { Group, Avatar, Text, Menu, UnstyledButton, useMantineTheme, rem } from '@mantine/core';
 import cx from 'clsx';
+import { useNavigate } from 'react-router-dom';
 import classes from './UserButton.module.css';
 import useAppState from '@/store';
 
@@ -12,7 +13,7 @@ const user = {
 export default () => {
   const { sidebarCollapse } = useAppState();
   const theme = useMantineTheme();
-
+  const nav = useNavigate();
   return (
     <Group justify="center">
       <Menu
@@ -83,6 +84,9 @@ export default () => {
             Change account
           </Menu.Item>
           <Menu.Item
+            onClick={() => {
+            nav('/sign-in');
+          }}
             leftSection={<IconLogout style={{ width: rem(16), height: rem(16) }} stroke={1.5} />}
           >
             Logout

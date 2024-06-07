@@ -23,7 +23,6 @@ export default ({ children }: PropsWithChildren<{}>) => {
       <AppShell.Header style={{ marginLeft: sidebarWidth }}>
         <Group h="100%" justify="space-between" pr="md">
           <Group h="100%" px="md" justify="space-between">
-            {/* <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" /> */}
             <MenuBtn />
           </Group>
           <Group>
@@ -32,7 +31,7 @@ export default ({ children }: PropsWithChildren<{}>) => {
           </Group>
         </Group>
       </AppShell.Header>
-      <AppShell.Navbar p="md" style={{ top: 0, height: '100vh' }}>
+      <AppShell.Navbar p="md" style={{ top: 0, height: '100vh', paddingLeft: 0, paddingRight: 0 }}>
         <Brand name="Mantine Admin Starter" extraName="My cool admin panel" />
         <NavBar />
       </AppShell.Navbar>
@@ -45,7 +44,7 @@ export default ({ children }: PropsWithChildren<{}>) => {
         {children}
       </AppShell.Main>
       <AppShell.Footer>
-        ads
+      &copy; 2024 Mantine Admin Starter
       </AppShell.Footer>
     </AppShell>
   );

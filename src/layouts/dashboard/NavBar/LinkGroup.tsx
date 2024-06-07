@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Group, Box, Collapse, ThemeIcon, Text, UnstyledButton, rem } from '@mantine/core';
+import { Group, Box, Collapse, ThemeIcon, Text, UnstyledButton, rem, useMantineTheme } from '@mantine/core';
 import { IconCalendarStats, IconChevronRight } from '@tabler/icons-react';
+import { NavLink } from 'react-router-dom';
 import classes from './LinkGroup.module.css';
 import useAppState from '@/store';
 
@@ -13,19 +14,18 @@ interface LinksGroupProps {
 
 export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksGroupProps) {
   const hasLinks = Array.isArray(links);
+  const { colors, primaryColor } = useMantineTheme();
   const [opened, setOpened] = useState(initiallyOpened || false);
-  // const {} = useAppState();
   const items = (hasLinks ? links : []).map((link) => (
-    <Text<'a'>
-      component="a"
-      className={classes.link}
-      href={link.link}
-      key={link.label}
-      onClick={(event) => event.preventDefault()}
-    >
-      {link.label}
-    </Text>
+    <NavLink to={link.link} end key={link.label} className={classes.link}>
+      {({ isActive }) => (
+        <Text c={isActive ? primaryColor : colors.gray[6]} style={{}}>
+          {link.label}
+        </Text>
+      )}
+    </NavLink>
   ));
+  const { sidebarCollapse } = useAppState();
 
   return (
     <>
@@ -35,9 +35,9 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
             <ThemeIcon variant="light" size={30}>
               <Icon style={{ width: rem(18), height: rem(18) }} />
             </ThemeIcon>
-            <Box ml="md">{label}</Box>
+            {!sidebarCollapse && <Box ml="md">{label}</Box>}
           </Box>
-          {hasLinks && (
+          {hasLinks && !sidebarCollapse && (
             <IconChevronRight
               className={classes.chevron}
               stroke={1.5}
@@ -50,7 +50,7 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
           )}
         </Group>
       </UnstyledButton>
-      {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
+      {hasLinks && !sidebarCollapse ? <Collapse in={opened}>{items}</Collapse> : null}
     </>
   );
 }
